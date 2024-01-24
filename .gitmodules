@@ -1,3 +1,0 @@
-[submodule "test-dockerfile/db/test_db"]
-	path = test-dockerfile/db/test_db
-	url = https://github.com/datacharmer/test_db
