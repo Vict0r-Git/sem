@@ -131,6 +131,8 @@ public static void main(String[] args) {
     ArrayList<Employee> employees = a.getAllSalaries();
     System.out.println("Array Size: " + employees.size() + "\n");
 
+    printSalaries(employees);
+
     a.disconnect();
 }
 }
