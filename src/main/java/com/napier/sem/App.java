@@ -87,52 +87,68 @@ public class App {
                             + "Department Num: ");
         }
     }
-public ArrayList<Employee> getAllSalaries() {
-    try {
-        Statement stmt = con.createStatement();
-        String strSelect =
-                "SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary"
-                        + " FROM employees, salaries"
-                        + " WHERE employees.emp_no = salaries.emp_no AND salaries.to_date = '9999-01-01'"
-                        + " ORDER BY employees.emp_no ASC";
-        ResultSet rset = stmt.executeQuery(strSelect);
+    public ArrayList<Employee> getAllSalaries() {
+        try {
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary"
+                            + " FROM employees, salaries"
+                            + " WHERE employees.emp_no = salaries.emp_no AND salaries.to_date = '9999-01-01'"
+                            + " ORDER BY employees.emp_no ASC";
+            ResultSet rset = stmt.executeQuery(strSelect);
 
-        ArrayList<Employee> employees = new ArrayList<>();
-        while (rset.next()) {
-            Employee emp = new Employee();
-            emp.emp_no = rset.getInt("employees.emp_no");
-            emp.first_name = rset.getString("employees.first_name");
-            emp.last_name = rset.getString("employees.last_name");
-            emp.salary = rset.getInt("salaries.salary");
-            employees.add(emp);
+            ArrayList<Employee> employees = new ArrayList<>();
+            while (rset.next()) {
+                Employee emp = new Employee();
+                emp.emp_no = rset.getInt("employees.emp_no");
+                emp.first_name = rset.getString("employees.first_name");
+                emp.last_name = rset.getString("employees.last_name");
+                emp.salary = rset.getInt("salaries.salary");
+                employees.add(emp);
+            }
+            return employees;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get salary details");
+            return null;
         }
-        return employees;
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
-        System.out.println("Failed to get salary details");
-        return null;
     }
-}
 
-public static void printSalaries(ArrayList<Employee> employees) {
-    System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
-    for (Employee emp : employees) {
-        String emp_string =
-                String.format("%-10s %-15s %-20s %-8s",
-                        emp.emp_no, emp.first_name, emp.last_name, emp.salary);
-        System.out.println(emp_string);
+    public void printSalaries(ArrayList<Employee> employees)
+    {
+        // Check employees is not null
+        if (employees == null)
+        {
+            System.out.println("No employees");
+            return;
+        }
+        // Print header
+        System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
+        // Loop over all employees in the list
+        for (Employee emp : employees)
+        {
+            if (emp == null)
+                continue;
+            String emp_string =
+                    String.format("%-10s %-15s %-20s %-8s",
+                            emp.emp_no, emp.first_name, emp.last_name, emp.salary);
+            System.out.println(emp_string);
+        }
     }
-}
 
-public static void main(String[] args) {
-    App a = new App();
-    a.connect();
+    public static void main(String[] args)
+    {
+        // Create new Application
+        App a = new App();
 
-    ArrayList<Employee> employees = a.getAllSalaries();
-    System.out.println("Array Size: " + employees.size() + "\n");
+        // Connect to database
+        a.connect();
+        // Get Employee
+        Employee emp = a.getEmployee(255530);
+        // Display results
+        a.displayEmployee(emp);
 
-    printSalaries(employees);
-
-    a.disconnect();
-}
+        // Disconnect from database
+        a.disconnect();
+    }
 }
