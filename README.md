@@ -5,5 +5,6 @@ HELLO
 
 # Software Engineering Methods
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Vict0r-Git/sem/main.yml/<branch>?style=flat-square)
+[![codecov](https://codecov.io/gh/Vict0r-Git/sem/graph/badge.svg?token=74GIEGQKGE)](https://codecov.io/gh/Vict0r-Git/sem)
 
 
