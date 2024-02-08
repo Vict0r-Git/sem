@@ -74,8 +74,7 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          CODECOV_TOKEN: 985938be-fffd-4259-ae6e-958583c841ab
           directory: ./target/site/jacoco
           flags: Integration Tests # optional
           verbose: true # optional (default = false)
